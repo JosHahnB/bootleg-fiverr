@@ -21,7 +21,7 @@ app.use(logger);
 
 app.use(authRoutes);
 app.use('/auth/v1', v1Routes);
-app.use('/auth/v2', v2Routes)
+app.use('/auth/v2', v2Routes);
 
 app.use('*', notFound);
 app.use(errorHandler);

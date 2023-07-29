@@ -3,7 +3,7 @@
 const express = require('express');
 const authRouter = express.Router();
 
-const { users } = require('./models');
+const { users } = require('../models/index');
 const basicAuth = require('./middleware/basic');
 const bearerAuth = require('./middleware/bearer');
 const permissions = require('./middleware/acl');
@@ -12,7 +12,7 @@ authRouter.post('/signup', async (req, res, next) => {
   try {
     let userRecord = await users.create(req.body);
     const output = {
-      user: userRecord,
+      users: userRecord,
       token: userRecord.token
     };
     res.status(201).json(output);
@@ -22,16 +22,16 @@ authRouter.post('/signup', async (req, res, next) => {
 });
 
 authRouter.post('/signin', basicAuth, (req, res, next) => {
-  const user = {
-    user: req.user,
-    token: req.user.token
+  const users = {
+    users: req.users,
+    token: req.users.token
   };
-  res.status(200).json(user);
+  res.status(200).json(users);
 });
 
 authRouter.get('/users', bearerAuth, permissions('delete'), async (req, res, next) => {
   const userRecords = await users.findAll({});
-  const list = userRecords.map(user => user.username);
+  const list = userRecords.map(users => users.username);
   res.status(200).json(list);
 });
 
