@@ -1,8 +1,9 @@
-'use strict'
+'use strict';
 
 const express = require('express');
 const dataModules = require('../models');
 const bearer = require('../auth/middleware/bearer');
+const acl = require('../auth/middleware/acl');
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ function checkAuthorization(capability) {
 router.param('model', (req, res, next) => {
   const modelName = req.params.model;
   if (dataModules[modelName]) {
-    req.model = dataModule[modelName];
+    req.model = dataModules[modelName];
     next();
   } else {
     next('Invalid Model');
