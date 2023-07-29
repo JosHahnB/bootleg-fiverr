@@ -21,4 +21,4 @@ module.exports = {
   serviceSeeker: new Collection(serviceSeeker),
   authUser,
   authAdmin,
-}
+};
