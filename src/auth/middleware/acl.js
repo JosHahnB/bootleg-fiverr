@@ -10,7 +10,7 @@ module.exports = (capability) => {
         next('Access Denied');
       }
     } catch (e) {
-      next('invalid Login')
+      next('invalid Login');
     }
-  }
-}
+  };
+};
