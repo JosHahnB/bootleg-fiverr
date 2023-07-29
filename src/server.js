@@ -8,7 +8,8 @@ const notFound = require('./error-handlers/404.js');
 const authRoutes = require('./auth/route.js');
 const logger = require('../src/middleware/logger.js');
 
-const v1Routes = require('../src/routes/v1.js');
+const v1Routes = require('./routes/v1.js');
+const v2Routes = require('./routes/v2.js');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(logger);
 
 app.use(authRoutes);
 app.use('/auth/v1', v1Routes);
+app.use('/auth/v2', v2Routes)
 
 app.use('*', notFound);
 app.use(errorHandler);
