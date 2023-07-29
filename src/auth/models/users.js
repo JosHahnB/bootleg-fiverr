@@ -2,13 +2,14 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+// const { users } = require('../../..');
 
 const SECRET = process.env.SECRET || 'secretstring';
 
 const userModel = (sequelize, DataTypes) => {
   const model = sequelize.define('Users', {
     username: { type: DataTypes.STRING, required: true, unique: true },
-    password: { types: DataTypes.STRING, required: true, unique: true },
+    password: { type: DataTypes.STRING, required: true, unique: true },
     role: { type: DataTypes.ENUM('user', 'creator', 'editor', 'admin'), required: true, defaultValue: 'user'},
     token: {
       type: DataTypes.VIRTUAL,
@@ -39,17 +40,17 @@ const userModel = (sequelize, DataTypes) => {
   });
   
   model.authenticateBasic = async function(username, password) {
-    const user = await this.findOne({ where: { username } });
-    const valid = await bcrypt.compare(password, user.password);
-    if(valid) { return user; }
+    const users = await this.findOne({ where: { username } });
+    const valid = await bcrypt.compare(password, users.password);
+    if (valid) { return users; }
     throw new Error('Invalid User');
   };
   
   model.authenticateToken = async function (token) {
     try {
       const parsedToken = jwt.verify(token, SECRET);
-      const user = this.findOne({where: { username: parsedToken.username} });
-      if (user) { return user; }
+      const users = this.findOne({where: { username: parsedToken.username} });
+      if (users) { return users; }
       throw new Error('User Not Found');
     } catch (e) {
       throw new Error(e.message);
