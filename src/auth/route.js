@@ -9,12 +9,14 @@ const bearerAuth = require('./middleware/bearer');
 const permissions = require('./middleware/acl');
 
 authRouter.post('/signup', async (req, res, next) => {
+  console.log('signup route!');
   try {
     let userRecord = await users.create(req.body);
     const output = {
       users: userRecord,
       token: userRecord.token
     };
+    console.log(output);
     res.status(201).json(output);
   } catch (e) {
     next(e.message);

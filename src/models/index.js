@@ -14,5 +14,5 @@ const authUser = userModel(sequelize, DataTypes);
 module.exports = {
   db: sequelize,
   serviceProvivder: new Collection(serviceProvivder),
-  authUser,
+  users: authUser
 };

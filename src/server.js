@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 
 const errorHandler = require('./error-handlers/500.js');
 const notFound = require('./error-handlers/404.js');
@@ -13,7 +13,7 @@ const v2Routes = require('./routes/v2.js');
 
 const app = express();
 
-app.use(cors);
+// app.use(cors);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true } ));
