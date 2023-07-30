@@ -3,14 +3,14 @@ module.exports = (capability) => {
 
   return (req, res, next) => {
     try {
-      if (req.user.capabilities.includes(capability)) {
+      if (req.users.capabilities.includes(capability)) {
         next();
       }
       else {
         next('Access Denied');
       }
     } catch (e) {
-      next('invalid Login');
+      next('Invalid Login');
     }
   };
 };
